@@ -63,19 +63,7 @@ back): # background area ---> should be input by the user manually.
             w = k*exp(-(abs(Im[i]-Im[i-1])**2)/s) # the cost function for two pixels
             g.add_edge(i,i-1,w[0],k-w[0]) # edges between two pixels
 
-            '''Explaination of the likelihood function: * used Bayes’ theorem for conditional probabilities
-            * The function is constructed by multiplying the individual conditional probabilities of a pixel being either 
-            foreground or background in order to get the total probability. Then the class with highest probability is selected.
-            * for a pixel i in the image:
-                               * weight from sink to i:
-                               probabilty of i being background/sum of probabilities
-                               * weight from source to i:
-                               probabilty of i being foreground/sum of probabilities
-                               * weight from i to a 4-neighbourhood pixel:
-                                K * e−|Ii−Ij |2 / s
-                                 where k and s are parameters that determine hwo close the neighboring pixels are how fast the values
-                                 decay towards zero with increasing dissimilarity
-            '''
+
         if (i+1)%n != 0: # for right pixels
             w = k*exp(-(abs(Im[i]-Im[i+1])**2)/s)
             g.add_edge(i,i+1,w[0],k-w[0]) # edges between two pixels
@@ -104,5 +92,4 @@ back): # background area ---> should be input by the user manually.
     plt.imshow(out,vmin=0,vmax=255) # plot the output image
     plt.show()
 
-graph('input1.jpg',2,100,(225,142,279,185),(7,120,61,163)) #calling the maxflow funtion for input1
-graph('input2.jpg',2,120,(148,105,201,165),(11,12,80,52)) #calling the maxflow funtion for input2
+graph('berry.jpg',2,100,(225,142,279,185),(7,120,61,163)) #calling the maxflow funtion for input1
