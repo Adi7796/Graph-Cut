@@ -92,4 +92,4 @@ back): # background area ---> should be input by the user manually.
     plt.imshow(out,vmin=0,vmax=255) # plot the output image
     plt.show()
 
-graph('berry.jpg',2,100,(225,142,279,185),(7,120,61,163)) #calling the maxflow funtion for input1
+graph('img.jpg',2,100,(225,142,279,185),(7,120,61,163)) #calling the maxflow funtion for input1

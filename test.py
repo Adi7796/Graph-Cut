@@ -29,12 +29,7 @@ def overlay_mask(mask, image):
 def find_biggest_contour(image):
     # Copy
     image = image.copy()
-    # input, gives all the contours, contour approximation compresses horizontal,
-    # vertical, and diagonal segments and leaves only their end points. For example,
-    # an up-right rectangular contour is encoded with 4 points.
-    # Optional output vector, containing information about the image topology.
-    # It has as many elements as the number of contours.
-    # we dont need it
+
     image,contours, hierarchy = cv2.findContours(image, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
 
     # Isolate largest contour
@@ -98,16 +93,16 @@ def find_object(image):
     mask_clean = cv2.morphologyEx(mask_closed, cv2.MORPH_OPEN, kernel)
 
     # Find biggest strawberry
-    # get back list of segmented strawberries and an outline for the biggest one
-    big_strawberry_contour, mask_strawberries = find_biggest_contour(mask_clean)
+    # get back list of segmented object and an outline for the biggest one
+    big_object_contour, mask_object = find_biggest_contour(mask_clean)
 
     # Overlay cleaned mask on image
-    # overlay mask on image, strawberry now segmented
+    # overlay mask on image, object now segmented
     overlay = overlay_mask(mask_clean, image)
 
-    # Circle biggest strawberry
+    # Circle biggest object
     # circle the biggest one
-    circled = circle_contour(overlay, big_strawberry_contour)
+    circled = circle_contour(overlay, big_object_contour)
     show(circled)
 
 
@@ -116,9 +111,9 @@ def find_object(image):
     return bgr
 
 
-# read the image
-image = cv2.imread('img.jpg')
-# detect it
+
+image = cv2.imread('berry.jpg')
+
 result = find_object(image)
-# write the new image
-cv2.imwrite('img2.jpg', result)
+
+cv2.imwrite('berry2.jpg', result)
