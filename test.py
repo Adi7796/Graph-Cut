@@ -56,7 +56,7 @@ def circle_contour(image, contour):
     return image_with_ellipse
 
 
-def find_strawberry(image):
+def find_object(image):
 
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
@@ -72,9 +72,7 @@ def find_strawberry(image):
     # dots
     # Blurs an image using a Gaussian filter. input, kernel size, how much to filter, empty)
     image_blur = cv2.GaussianBlur(image, (7, 7), 0)
-    # t unlike RGB, HSV separates luma, or the image intensity, from
-    # chroma or the color information.
-    # just want to focus on color, segmentation
+
     image_blur_hsv = cv2.cvtColor(image_blur, cv2.COLOR_RGB2HSV)
 
     # Filter by colour
@@ -91,17 +89,10 @@ def find_strawberry(image):
     max_red2 = np.array([180, 256, 256])
     mask2 = cv2.inRange(image_blur_hsv, min_red2, max_red2)
 
-    # looking for what is in both ranges
-    # Combine masks
-    mask = mask1 + mask2
 
-    # Clean up
-    # we want to circle our strawberry so we'll circle it with an ellipse
-    # with a shape of 15x15
+    mask = mask1 + mask2
     kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (15, 15))
-    # morph the image. closing operation Dilation followed by Erosion.
-    # It is useful in closing small holes inside the foreground objects,
-    # or small black points on the object.
+
     mask_closed = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel)
     # erosion followed by dilation. It is useful in removing noise
     mask_clean = cv2.morphologyEx(mask_closed, cv2.MORPH_OPEN, kernel)
@@ -119,15 +110,15 @@ def find_strawberry(image):
     circled = circle_contour(overlay, big_strawberry_contour)
     show(circled)
 
-    # we're done, convert back to original color scheme
+
     bgr = cv2.cvtColor(circled, cv2.COLOR_RGB2BGR)
 
     return bgr
 
 
 # read the image
-image = cv2.imread('berry.jpg')
+image = cv2.imread('img.jpg')
 # detect it
-result = find_strawberry(image)
+result = find_object(image)
 # write the new image
-cv2.imwrite('berry2.jpg', result)
+cv2.imwrite('img2.jpg', result)
