@@ -5,7 +5,9 @@ from PIL import Image
 from matplotlib import pyplot as plt
 from pylab import *
 import cv2
+import time
 
+start= time.time()
 #The function implements graph cut by partitioning a directed graph into two disjoint sets, foreground and background
 def graph(file, # input image
 k, # kappa value --> similar pixels have weight close to kappa
@@ -92,4 +94,6 @@ back): # background area ---> should be input by the user manually.
     plt.imshow(out,vmin=0,vmax=255) # plot the output image
     plt.show()
 
-graph('img.jpg',2,100,(225,142,279,185),(7,120,61,163)) #calling the maxflow funtion for input1
+graph('input1.jpg',2,100,(225,142,279,185),(7,120,61,163)) #calling the maxflow funtion for input1
+end= time.time()
+print "time taken : ",end-start

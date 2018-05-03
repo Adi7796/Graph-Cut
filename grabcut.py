@@ -1,7 +1,9 @@
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
+import time
 
+start =time.time()
 img=cv2.imread('rose.jpg')
 mask=np.zeros(img.shape[:2],np.uint8)
 
@@ -16,3 +18,5 @@ img=img*mask2[:,:,np.newaxis]
 plt.imshow(img)
 plt.colorbar()
 plt.show()
+end=time.time()
+print end-start

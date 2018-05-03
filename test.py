@@ -4,10 +4,10 @@ import cv2
 from matplotlib import pyplot as plt
 import numpy as np
 from math import cos, sin
-
+import time
 green = (0, 255, 0)
 
-
+start =time.time()
 def show(image):
     # Figure size in inches
     plt.figure(figsize=(10, 10))
@@ -112,8 +112,11 @@ def find_object(image):
 
 
 
-image = cv2.imread('berry.jpg')
+image = cv2.imread('berry1.jpg')
 
 result = find_object(image)
 
 cv2.imwrite('berry2.jpg', result)
+
+end=time.time()
+print end-start
